@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIVYA-DATA | AI Career & Wealth Intelligence</title>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blush-pink: #FCE7F3;
+            --soft-lilac: #EDE9FE;
+            --sky-blue: #E0F2FE;
+            --cream-white: #FFFBFA;
+            --deep-purple: #6366F1;
+            --accent-pink: #EC4899;
+            --text-main: #1E293B;
+            --glass: rgba(255, 255, 255, 0.7);
+            --gradient-primary: linear-gradient(135deg, #FCE7F3 0%, #EDE9FE 50%, #E0F2FE 100%);
+            --cta-gradient: linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: var(--cream-white);
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Background Glows */
+        .glow {
+            position: fixed;
+            width: 40vw;
+            height: 40vw;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.5;
+            animation: float 20s infinite alternate;
+        }
+        .glow-1 { background: var(--blush-pink); top: -10%; left: -10%; }
+        .glow-2 { background: var(--sky-blue); bottom: -10%; right: -10%; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        header {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            background: var(--cta-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1.5rem 5rem;
+        }
+
+        /* Form Styling */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #1E1B4B;
+        }
+
+        .hero-section p {
+            font-size: 1.1rem;
+            color: #64748B;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #475569;
+            padding-left: 0.5rem;
+        }
+
+        input, select {
+            padding: 1rem;
+            border-radius: 12px;
+            border: 1px solid #E2E8F0;
+            background: white;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #8B5CF6;
+        }
+
+        .btn-primary {
+            background: var(--cta-gradient);
+            color: white;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 2rem;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(236, 72, 153, 0.4);
+        }
+
+        /* Loading State */
+        #loader {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid var(--soft-lilac);
+            border-top: 5px solid var(--accent-pink);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1.5rem;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Results Styling */
+        #results {
+            display: none;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--soft-lilac);
+        }
+
+        .metric-card h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #64748B;
+            margin-bottom: 1rem;
+        }
+
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1E1B4B;
+        }
+
+        .progress-container {
+            height: 8px;
+            background: #F1F5F9;
+            border-radius: 4px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--cta-gradient);
+            transition: width 1s ease-out;
+        }
+
+        .chart-container {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 24px;
+            height: 400px;
+        }
+
+        .career-list {
+            margin-top: 2rem;
+            list-style: none;
+        }
+
+        .career-item {
+            padding: 1rem;
+            background: var(--soft-lilac);
+            margin-bottom: 0.8rem;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 500;
+        }
+
+        .career-item span {
+            background: white;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .warning-box {
+            background: #FFF1F2;
+            border: 1px solid #FECDD3;
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin-top: 2rem;
+            color: #9F1239;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: #94A3B8;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section h1 { font-size: 2.2rem; }
+            .glass-card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+
+    <header>
+        <div class="brand">DIVYA-DATA</div>
+    </header>
+
+    <div class="container">
+        <!-- Input Section -->
+        <section id="input-section">
+            <div class="hero-section">
+                <h1>Unlock Your Cosmic Success</h1>
+                <p>Advanced AI-driven astrological analysis for career growth, wealth timing, and professional destiny.</p>
+            </div>
+
+            <div class="glass-card">
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label>Birth Date</label>
+                        <input type="date" id="birthDate" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Birth Time</label>
+                        <input type="time" id="birthTime" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Location</label>
+                        <input type="text" id="location" placeholder="City, Country" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Current Status</label>
+                        <select id="status">
+                            <option value="student">Student</option>
+                            <option value="employed">Employed</option>
+                            <option value="business">Business Owner</option>
+                            <option value="unemployed">Searching</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="generateReport()">Analyze Professional Destiny</button>
+            </div>
+        </section>
+
+        <!-- Loading -->
+        <div id="loader">
+            <div class="spinner"></div>
+            <h3>Mapping Your Planetary Alignment...</h3>
+            <p>Scanning 10th House influences and Wealth Dashas</p>
+        </div>
+
+        <!-- Result Section -->
+        <section id="results">
+            <div class="glass-card">
+                <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 2rem;">Cosmic Career Blueprint</h2>
+                
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <h3>Dominant Planet</h3>
+                        <div class="metric-value" id="dominantPlanet">-</div>
+                        <p id="planetDesc" style="font-size: 0.85rem; margin-top: 0.5rem; color: #64748B;"></p>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Business Success Score</h3>
+                        <div class="metric-value" id="businessScore">0%</div>
+                        <div class="progress-container">
+                            <div class="progress-bar" id="businessBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Leadership Index</h3>
+                        <div class="metric-value" id="leadershipIndex">0%</div>
+                        <div class="progress-container">
+                            <div class="progress-bar" id="leadershipBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <h3>Foreign Settlement</h3>
+                        <div class="metric-value" id="foreignProb">Low</div>
+                        <p style="font-size: 0.85rem; margin-top: 0.5rem; color: #64748B;">Probability based on 9th/12th house</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem;">
+                    <h3 style="margin-bottom: 1.5rem;">Recommended Career Paths</h3>
+                    <div id="careerPaths" class="career-list">
+                        <!-- JS Injection -->
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <h3 style="margin-bottom: 1rem;">Financial Growth Timeline (Ages 20-70)</h3>
+                    <canvas id="wealthChart"></canvas>
+                </div>
+
+                <div id="riskWarning" class="warning-box">
+                    <strong>⚠️ Risk Warning:</strong> Heavy Saturn transit detected between age <span id="saturnAge"></span>. Focus on stability rather than expansion during this cycle.
+                </div>
+
+                <button class="btn-primary" onclick="window.print()" style="margin-top: 3rem; background: var(--sky-blue); color: var(--text-main); box-shadow: none;">Download Full Report</button>
+                <button class="btn-primary" onclick="resetForm()">New Analysis</button>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 DIVYA-DATA. All rights reserved.</p>
+        <p style="font-size: 0.7rem; margin-top: 0.5rem;">For entertainment & guidance purposes only. Decisions should be backed by practical action.</p>
+    </footer>
+
+    <script>
+        let wealthChartInstance = null;
+
+        function resetForm() {
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('input-section').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function generateReport() {
+            const birthDate = document.getElementById('birthDate').value;
+            if (!birthDate) return;
+
+            document.getElementById('input-section').style.display = 'none';
+            document.getElementById('loader').style.display = 'block';
+
+            // Simulate AI Processing
+            setTimeout(() => {
+                const logic = calculateAstrologyLogic(birthDate);
+                renderResults(logic);
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('results').style.display = 'block';
+            }, 2500);
+        }
+
+        function calculateAstrologyLogic(dateStr) {
+            const date = new Date(dateStr);
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();
+            const seed = day + month + (year % 100);
+
+            // Deterministic but "random-feeling" logic based on inputs
+            const planets = ["Sun", "Moon", "Mars", "Mercury", "Jupiter", "Venus", "Saturn"];
+            const dominantIndex = seed % planets.length;
+            const domPlanet = planets[dominantIndex];
+
+            const planetData = {
+                "Sun": { desc: "Natural born leader, authority figures, government, core ego.", careers: ["Public Office", "CEO", "Surgeon", "Government Admin", "Entrepreneur"] },
+                "Moon": { desc: "Highly intuitive, emotional intelligence, nurturing, liquids.", careers: ["Psychology", "Hospitality", "Public Relations", "Creative Arts", "Maritime"] },
+                "Mars": { desc: "Energetic, competitive, technical, engineering focus.", careers: ["Engineering", "Defense", "Real Estate", "Sports Management", "Surgeon"] },
+                "Mercury": { desc: "Analytical, communication expert, tech and data driven.", careers: ["Data Science", "Marketing", "Journalism", "Stock Trading", "Programming"] },
+                "Jupiter": { desc: "Wisdom, wealth, teaching, law, finance expansion.", careers: ["Investment Banking", "Advisory", "Legal Consulting", "Education", "Philanthropy"] },
+                "Venus": { desc: "Aesthetics, luxury, design, partnership, creative.", careers: ["UX/UI Design", "Fashion Branding", "Luxury Retail", "Entertainment", "Architecture"] },
+                "Saturn": { desc: "Discipline, structure, long-term legacy, real estate.", careers: ["Structural Engineering", "Mining", "Corporate Law", "Agriculture", "Research"] }
+            };
+
+            const bizScore = Math.min(95, (seed * 7) % 100);
+            const leadIndex = Math.min(98, (seed * 11) % 100);
+            const foreignChance = (seed + month) % 3 === 0 ? "High" : "Moderate";
+
+            // Wealth Timeline Logic (Deterministic based on birth date)
+            const wealthPoints = [];
+            for(let age=20; age<=70; age += 5) {
+                let base = (seed % 10) + (age / 10);
+                let cycle = Math.sin((age + seed) / 10) * 20;
+                wealthPoints.push(Math.max(10, Math.floor(base * 10 + cycle)));
+            }
+
+            return {
+                planet: domPlanet,
+                desc: planetData[domPlanet].desc,
+                careers: planetData[domPlanet].careers,
+                business: bizScore,
+                leadership: leadIndex,
+                foreign: foreignChance,
+                wealthTimeline: wealthPoints,
+                saturnAge: (year % 15) + 25
+            };
+        }
+
+        function renderResults(data) {
+            document.getElementById('dominantPlanet').innerText = data.planet;
+            document.getElementById('planetDesc').innerText = data.desc;
+            
+            document.getElementById('businessScore').innerText = data.business + "%";
+            document.getElementById('businessBar').style.width = data.business + "%";
+            
+            document.getElementById('leadershipIndex').innerText = data.leadership + "%";
+            document.getElementById('leadershipBar').style.width = data.leadership + "%";
+            
+            document.getElementById('foreignProb').innerText = data.foreign;
+            document.getElementById('saturnAge').innerText = data.saturnAge + " - " + (data.saturnAge + 2.5);
+
+            const careerContainer = document.getElementById('careerPaths');
+            careerContainer.innerHTML = '';
+            data.careers.forEach((c, i) => {
+                careerContainer.innerHTML += `
+                    <div class="career-item">
+                        <span>${i + 1}</span>
+                        ${c}
+                    </div>
+                `;
+            });
+
+            // Chart Rendering
+            const ctx = document.getElementById('wealthChart').getContext('2d');
+            
+            if (wealthChartInstance) wealthChartInstance.destroy();
+
+            wealthChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70],
+                    datasets: [{
+                        label: 'Wealth Potential Index',
+                        data: data.wealthTimeline,
+                        borderColor: '#8B5CF6',
+                        backgroundColor: 'rgba(237, 233, 254, 0.5)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#EC4899',
+                        pointRadius: 5
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { display: false },
+                            ticks: { display: false }
+                        },
+                        x: {
+                            grid: { display: false },
+                            title: { display: true, text: 'Age (Years)' }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
