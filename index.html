@@ -3,23 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DIVYA-DATA | AI Career & Wealth Intelligence</title>
+    <title>DIVYA-DATA | Vedic Career & Artha Intelligence</title>
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Noto+Serif+Devanagari:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
+            --royal-saffron: #FF9933;
+            --deep-navy: #0F172A;
+            --silk-cream: #FFFBF0;
             --blush-pink: #FCE7F3;
             --soft-lilac: #EDE9FE;
-            --sky-blue: #E0F2FE;
-            --cream-white: #FFFBFA;
-            --deep-purple: #6366F1;
-            --accent-pink: #EC4899;
-            --text-main: #1E293B;
-            --glass: rgba(255, 255, 255, 0.7);
-            --gradient-primary: linear-gradient(135deg, #FCE7F3 0%, #EDE9FE 50%, #E0F2FE 100%);
-            --cta-gradient: linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%);
+            --glass: rgba(255, 255, 255, 0.85);
+            --gold-gradient: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            --cta-gradient: linear-gradient(135deg, #FF9933 0%, #EC4899 100%);
         }
 
         * {
@@ -30,273 +28,278 @@
         }
 
         body {
-            background: var(--cream-white);
-            color: var(--text-main);
+            background-color: var(--silk-cream);
+            background-image: radial-gradient(circle at 2px 2px, rgba(191, 149, 63, 0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+            color: var(--deep-navy);
             overflow-x: hidden;
             min-height: 100vh;
         }
 
-        /* Background Glows */
-        .glow {
+        /* Mythological Glows */
+        .aura {
             position: fixed;
-            width: 40vw;
-            height: 40vw;
+            width: 60vw;
+            height: 60vw;
             border-radius: 50%;
-            filter: blur(80px);
+            filter: blur(120px);
             z-index: -1;
-            opacity: 0.5;
-            animation: float 20s infinite alternate;
+            opacity: 0.3;
+            animation: pulse 15s infinite alternate;
         }
-        .glow-1 { background: var(--blush-pink); top: -10%; left: -10%; }
-        .glow-2 { background: var(--sky-blue); bottom: -10%; right: -10%; }
+        .aura-1 { background: var(--royal-saffron); top: -20%; left: -10%; }
+        .aura-2 { background: var(--soft-lilac); bottom: -10%; right: -10%; }
 
-        @keyframes float {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.2; }
+            100% { transform: scale(1.2); opacity: 0.4; }
         }
 
         header {
-            padding: 2rem;
+            padding: 3rem 1rem;
             text-align: center;
         }
 
+        .sanskrit-text {
+            font-family: 'Noto Serif Devanagari', serif;
+            font-size: 1.2rem;
+            color: var(--royal-saffron);
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+
         .brand {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            font-weight: 700;
             background: var(--cta-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: -1px;
+            letter-spacing: 4px;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 0 1.5rem 5rem;
         }
 
-        /* Form Styling */
+        /* Glassmorphism Cards */
         .glass-card {
             background: var(--glass);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 24px;
-            padding: 2.5rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
-            margin-bottom: 2rem;
-            transition: transform 0.3s ease;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(191, 149, 63, 0.2);
+            border-radius: 32px;
+            padding: 3rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2.5rem;
         }
 
         .hero-section {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
         }
 
         .hero-section h1 {
-            font-size: 3rem;
-            font-weight: 700;
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
             margin-bottom: 1rem;
             color: #1E1B4B;
-        }
-
-        .hero-section p {
-            font-size: 1.1rem;
-            color: #64748B;
-            max-width: 600px;
-            margin: 0 auto;
         }
 
         .input-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
             margin-top: 2rem;
         }
 
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        label {
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: #475569;
-            padding-left: 0.5rem;
+        .input-group label {
+            display: block;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #64748B;
+            margin-bottom: 0.75rem;
         }
 
         input, select {
-            padding: 1rem;
-            border-radius: 12px;
+            width: 100%;
+            padding: 1.2rem;
+            border-radius: 16px;
             border: 1px solid #E2E8F0;
-            background: white;
+            background: rgba(255, 255, 255, 0.9);
             font-size: 1rem;
-            outline: none;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
         }
 
         input:focus {
-            border-color: #8B5CF6;
+            border-color: var(--royal-saffron);
+            box-shadow: 0 0 0 4px rgba(255, 153, 51, 0.1);
+            outline: none;
         }
 
-        .btn-primary {
+        .btn-divine {
             background: var(--cta-gradient);
             color: white;
             border: none;
-            padding: 1.2rem 2.5rem;
-            border-radius: 50px;
-            font-size: 1.1rem;
+            padding: 1.5rem;
+            border-radius: 20px;
+            font-size: 1.2rem;
             font-weight: 700;
+            font-family: 'Cinzel', serif;
             cursor: pointer;
-            margin-top: 2rem;
             width: 100%;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3);
+            margin-top: 2.5rem;
+            box-shadow: 0 15px 30px rgba(255, 153, 51, 0.3);
+            transition: all 0.3s;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 30px rgba(236, 72, 153, 0.4);
+        .btn-divine:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(255, 153, 51, 0.4);
         }
 
-        /* Loading State */
-        #loader {
-            display: none;
-            text-align: center;
-            padding: 3rem;
+        /* Results Display */
+        #results { display: none; }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid var(--soft-lilac);
-            border-top: 5px solid var(--accent-pink);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1.5rem;
-        }
-
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        /* Results Styling */
-        #results {
-            display: none;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        .section-title::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, var(--royal-saffron), transparent);
         }
 
         .metric-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
         }
 
         .metric-card {
             background: white;
-            padding: 1.5rem;
-            border-radius: 20px;
-            border: 1px solid var(--soft-lilac);
-        }
-
-        .metric-card h3 {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #64748B;
-            margin-bottom: 1rem;
-        }
-
-        .metric-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #1E1B4B;
-        }
-
-        .progress-container {
-            height: 8px;
-            background: #F1F5F9;
-            border-radius: 4px;
-            margin-top: 10px;
+            padding: 2rem;
+            border-radius: 24px;
+            border: 1px solid #F1F5F9;
+            position: relative;
             overflow: hidden;
         }
 
-        .progress-bar {
-            height: 100%;
-            background: var(--cta-gradient);
-            transition: width 1s ease-out;
+        .metric-card::before {
+            content: "ॐ";
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 5rem;
+            opacity: 0.03;
+            color: var(--royal-saffron);
         }
 
-        .chart-container {
-            margin-top: 3rem;
-            padding: 2rem;
-            background: white;
-            border-radius: 24px;
-            height: 400px;
-        }
-
-        .career-list {
-            margin-top: 2rem;
-            list-style: none;
-        }
-
-        .career-item {
-            padding: 1rem;
-            background: var(--soft-lilac);
-            margin-bottom: 0.8rem;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            font-weight: 500;
-        }
-
-        .career-item span {
-            background: white;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            font-size: 0.8rem;
+        .label-sanskrit {
+            font-family: 'Noto Serif Devanagari', serif;
+            color: var(--royal-saffron);
             font-weight: 700;
-        }
-
-        .warning-box {
-            background: #FFF1F2;
-            border: 1px solid #FECDD3;
-            padding: 1.5rem;
-            border-radius: 16px;
-            margin-top: 2rem;
-            color: #9F1239;
-        }
-
-        footer {
-            text-align: center;
-            padding: 3rem;
-            color: #94A3B8;
             font-size: 0.9rem;
         }
 
+        .metric-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+            font-family: 'Cinzel', serif;
+        }
+
+        .insight-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #475569;
+        }
+
+        .chart-wrapper {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 32px;
+            margin-top: 3rem;
+            height: 450px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.02);
+        }
+
+        .badge-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .badge {
+            padding: 0.5rem 1rem;
+            background: var(--soft-lilac);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #5B21B6;
+        }
+
+        /* Detailed Narrative Box */
+        .narrative-box {
+            background: linear-gradient(to bottom right, #ffffff, var(--silk-cream));
+            border-left: 5px solid var(--royal-saffron);
+            padding: 2.5rem;
+            margin-top: 3rem;
+            border-radius: 0 24px 24px 0;
+        }
+
+        .shloka-quote {
+            font-family: 'Noto Serif Devanagari', serif;
+            font-style: italic;
+            font-size: 1.3rem;
+            color: var(--royal-saffron);
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        /* Loading */
+        #loader {
+            display: none;
+            text-align: center;
+            padding: 5rem 0;
+        }
+
+        .mandala {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2rem;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="%23FF9933" stroke-width="2" stroke-dasharray="10 5"/><circle cx="50" cy="50" r="30" fill="none" stroke="%23EC4899" stroke-width="2" stroke-dasharray="5 5"/></svg>');
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
         @media (max-width: 768px) {
-            .hero-section h1 { font-size: 2.2rem; }
+            .hero-section h1 { font-size: 2.5rem; }
             .glass-card { padding: 1.5rem; }
+            .metric-value { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="glow glow-1"></div>
-    <div class="glow glow-2"></div>
+    <div class="aura aura-1"></div>
+    <div class="aura aura-2"></div>
 
     <header>
+        <div class="sanskrit-text">॥ कर्मण्येवाधिकारस्ते मा फलेषु कदाचन ॥</div>
         <div class="brand">DIVYA-DATA</div>
     </header>
 
@@ -304,236 +307,236 @@
         <!-- Input Section -->
         <section id="input-section">
             <div class="hero-section">
-                <h1>Unlock Your Cosmic Success</h1>
-                <p>Advanced AI-driven astrological analysis for career growth, wealth timing, and professional destiny.</p>
+                <h1>AI Career & Artha Intelligence</h1>
+                <p>Decoding the 10th House (Karma-Bhava) and 11th House (Labha-Bhava) through advanced Vedic computation.</p>
             </div>
 
             <div class="glass-card">
                 <div class="input-grid">
                     <div class="input-group">
                         <label>Birth Date</label>
-                        <input type="date" id="birthDate" required>
+                        <input type="date" id="birthDate" value="1995-06-15">
                     </div>
                     <div class="input-group">
                         <label>Birth Time</label>
-                        <input type="time" id="birthTime" required>
+                        <input type="time" id="birthTime" value="10:30">
                     </div>
                     <div class="input-group">
-                        <label>Location</label>
-                        <input type="text" id="location" placeholder="City, Country" required>
+                        <label>Place of Birth</label>
+                        <input type="text" id="location" placeholder="City, Country" value="New Delhi, India">
                     </div>
                     <div class="input-group">
-                        <label>Current Status</label>
-                        <select id="status">
-                            <option value="student">Student</option>
-                            <option value="employed">Employed</option>
-                            <option value="business">Business Owner</option>
-                            <option value="unemployed">Searching</option>
+                        <label>Aspiration</label>
+                        <select id="aspiration">
+                            <option value="wealth">Maximum Wealth (Artha)</option>
+                            <option value="fame">Fame & Authority (Kirti)</option>
+                            <option value="peace">Peace & Stability (Shanti)</option>
+                            <option value="innovation">Innovation & Tech (Vigyan)</option>
                         </select>
                     </div>
                 </div>
-                <button class="btn-primary" onclick="generateReport()">Analyze Professional Destiny</button>
+                <button class="btn-divine" onclick="generateVedicReport()">Invoke Cosmic Intelligence</button>
             </div>
         </section>
 
-        <!-- Loading -->
+        <!-- Loader -->
         <div id="loader">
-            <div class="spinner"></div>
-            <h3>Mapping Your Planetary Alignment...</h3>
-            <p>Scanning 10th House influences and Wealth Dashas</p>
+            <div class="mandala"></div>
+            <h2 style="font-family: 'Cinzel';">Consulting the Akasha...</h2>
+            <p>Calculating Graha-Bal, Ashtakvarga, and Vimshottari Dasha cycles.</p>
         </div>
 
         <!-- Result Section -->
         <section id="results">
+            <!-- Summary Insights -->
             <div class="glass-card">
-                <h2 style="font-family: 'Playfair Display', serif; margin-bottom: 2rem;">Cosmic Career Blueprint</h2>
-                
+                <h2 class="section-title">Karma-Bhava Alignment</h2>
                 <div class="metric-grid">
                     <div class="metric-card">
-                        <h3>Dominant Planet</h3>
-                        <div class="metric-value" id="dominantPlanet">-</div>
-                        <p id="planetDesc" style="font-size: 0.85rem; margin-top: 0.5rem; color: #64748B;"></p>
+                        <span class="label-sanskrit">मुख्‍य ग्रह (Dominant Planet)</span>
+                        <div class="metric-value" id="resPlanet">-</div>
+                        <p class="insight-text" id="resPlanetDesc"></p>
                     </div>
                     <div class="metric-card">
-                        <h3>Business Success Score</h3>
-                        <div class="metric-value" id="businessScore">0%</div>
-                        <div class="progress-container">
-                            <div class="progress-bar" id="businessBar" style="width: 0%"></div>
-                        </div>
+                        <span class="label-sanskrit">दशम भाव (Career Strength)</span>
+                        <div class="metric-value" id="resKarmaScore">0%</div>
+                        <p class="insight-text">Strength of your 10th house indicating professional resilience and authority.</p>
                     </div>
                     <div class="metric-card">
-                        <h3>Leadership Index</h3>
-                        <div class="metric-value" id="leadershipIndex">0%</div>
-                        <div class="progress-container">
-                            <div class="progress-bar" id="leadershipBar" style="width: 0%"></div>
-                        </div>
+                        <span class="label-sanskrit">अर्थ सिद्धि (Wealth Index)</span>
+                        <div class="metric-value" id="resWealthScore">0%</div>
+                        <p class="insight-text">Propensity for accumulating assets and liquid cash flow in this lifetime.</p>
                     </div>
                     <div class="metric-card">
-                        <h3>Foreign Settlement</h3>
-                        <div class="metric-value" id="foreignProb">Low</div>
-                        <p style="font-size: 0.85rem; margin-top: 0.5rem; color: #64748B;">Probability based on 9th/12th house</p>
+                        <span class="label-sanskrit">विदेश गमन (Foreign Probability)</span>
+                        <div class="metric-value" id="resForeign">Low</div>
+                        <p class="insight-text">Influence of Rahu and the 12th house on international professional settlement.</p>
                     </div>
                 </div>
+            </div>
 
-                <div style="margin-top: 3rem;">
-                    <h3 style="margin-bottom: 1.5rem;">Recommended Career Paths</h3>
-                    <div id="careerPaths" class="career-list">
-                        <!-- JS Injection -->
-                    </div>
+            <!-- Career Paths -->
+            <div class="glass-card">
+                <h2 class="section-title">Professional Path (Dharma)</h2>
+                <div id="careerPathsGrid" class="metric-grid">
+                    <!-- Dynamic Content -->
                 </div>
+            </div>
 
-                <div class="chart-container">
-                    <h3 style="margin-bottom: 1rem;">Financial Growth Timeline (Ages 20-70)</h3>
-                    <canvas id="wealthChart"></canvas>
+            <!-- Wealth Timeline -->
+            <div class="glass-card">
+                <h2 class="section-title">Artha Timeline (Wealth Cycles)</h2>
+                <div class="chart-wrapper">
+                    <canvas id="dashaChart"></canvas>
                 </div>
-
-                <div id="riskWarning" class="warning-box">
-                    <strong>⚠️ Risk Warning:</strong> Heavy Saturn transit detected between age <span id="saturnAge"></span>. Focus on stability rather than expansion during this cycle.
+                <div class="narrative-box">
+                    <span class="shloka-quote">शुभं करोति कल्याणमारोग्यं धनसंपदा ।</span>
+                    <p class="insight-text" id="detailedAnalysis">
+                        <!-- Detailed AI Text -->
+                    </p>
                 </div>
+            </div>
 
-                <button class="btn-primary" onclick="window.print()" style="margin-top: 3rem; background: var(--sky-blue); color: var(--text-main); box-shadow: none;">Download Full Report</button>
-                <button class="btn-primary" onclick="resetForm()">New Analysis</button>
+            <div style="text-align: center;">
+                <button class="btn-divine" style="max-width: 300px; background: var(--deep-navy);" onclick="location.reload()">Reset Horoscope</button>
             </div>
         </section>
     </div>
 
     <footer>
-        <p>&copy; 2024 DIVYA-DATA. All rights reserved.</p>
-        <p style="font-size: 0.7rem; margin-top: 0.5rem;">For entertainment & guidance purposes only. Decisions should be backed by practical action.</p>
+        <p>&copy; 2024 DIVYA-DATA | Digital Alchemy for the Modern Soul</p>
     </footer>
 
     <script>
-        let wealthChartInstance = null;
+        let chartInstance = null;
 
-        function resetForm() {
-            document.getElementById('results').style.display = 'none';
-            document.getElementById('input-section').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function generateReport() {
-            const birthDate = document.getElementById('birthDate').value;
-            if (!birthDate) return;
+        function generateVedicReport() {
+            const date = document.getElementById('birthDate').value;
+            if(!date) return;
 
             document.getElementById('input-section').style.display = 'none';
             document.getElementById('loader').style.display = 'block';
 
-            // Simulate AI Processing
             setTimeout(() => {
-                const logic = calculateAstrologyLogic(birthDate);
-                renderResults(logic);
+                const report = computeVedicLogic(date);
+                displayReport(report);
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('results').style.display = 'block';
-            }, 2500);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 3000);
         }
 
-        function calculateAstrologyLogic(dateStr) {
+        function computeVedicLogic(dateStr) {
             const date = new Date(dateStr);
-            const day = date.getDate();
-            const month = date.getMonth() + 1;
-            const year = date.getFullYear();
-            const seed = day + month + (year % 100);
+            const seed = date.getDate() + date.getMonth() + (date.getFullYear() % 100);
+            const asp = document.getElementById('aspiration').value;
 
-            // Deterministic but "random-feeling" logic based on inputs
-            const planets = ["Sun", "Moon", "Mars", "Mercury", "Jupiter", "Venus", "Saturn"];
-            const dominantIndex = seed % planets.length;
-            const domPlanet = planets[dominantIndex];
+            // Planets & Their Sanskrit Counterparts
+            const planets = [
+                { en: "Sun", sk: "Surya", element: "Agni (Fire)", power: "Leadership/Govt", desc: "You carry the 'Atmakaraka' energy of the Sun. Your career must involve authority, visibility, and high-stakes decision making." },
+                { en: "Moon", sk: "Chandra", element: "Jala (Water)", power: "Intuition/Care", desc: "Your career is driven by 'Manas' (Mind). You excel in public-facing roles, hospitality, or creative industries." },
+                { en: "Mars", sk: "Mangal", element: "Agni (Fire)", power: "Logic/Execution", desc: "The 'Commander' energy. Your path involves technical precision, engineering, defense, or high-octane entrepreneurship." },
+                { en: "Mercury", sk: "Budh", element: "Prithvi (Earth)", power: "Intellect/Trade", desc: "The 'Prince' of planets. You thrive in data, communication, stock markets, and rapid business scaling." },
+                { en: "Jupiter", sk: "Guru", element: "Akasha (Space)", power: "Wisdom/Wealth", desc: "The 'Advisor' energy. Your wealth comes through knowledge, teaching, legal expertise, or institutional leadership." },
+                { en: "Venus", sk: "Shukra", element: "Jala (Water)", power: "Luxury/Design", desc: "The 'Artist' energy. Success lies in luxury branding, aesthetics, entertainment, or sophisticated architecture." },
+                { en: "Saturn", sk: "Shani", element: "Vayu (Air)", power: "Structure/Legacy", desc: "The 'Judge'. You build empires slowly through discipline, mining, heavy industry, or deep research." }
+            ];
 
-            const planetData = {
-                "Sun": { desc: "Natural born leader, authority figures, government, core ego.", careers: ["Public Office", "CEO", "Surgeon", "Government Admin", "Entrepreneur"] },
-                "Moon": { desc: "Highly intuitive, emotional intelligence, nurturing, liquids.", careers: ["Psychology", "Hospitality", "Public Relations", "Creative Arts", "Maritime"] },
-                "Mars": { desc: "Energetic, competitive, technical, engineering focus.", careers: ["Engineering", "Defense", "Real Estate", "Sports Management", "Surgeon"] },
-                "Mercury": { desc: "Analytical, communication expert, tech and data driven.", careers: ["Data Science", "Marketing", "Journalism", "Stock Trading", "Programming"] },
-                "Jupiter": { desc: "Wisdom, wealth, teaching, law, finance expansion.", careers: ["Investment Banking", "Advisory", "Legal Consulting", "Education", "Philanthropy"] },
-                "Venus": { desc: "Aesthetics, luxury, design, partnership, creative.", careers: ["UX/UI Design", "Fashion Branding", "Luxury Retail", "Entertainment", "Architecture"] },
-                "Saturn": { desc: "Discipline, structure, long-term legacy, real estate.", careers: ["Structural Engineering", "Mining", "Corporate Law", "Agriculture", "Research"] }
+            const pIdx = seed % planets.length;
+            const domPlanet = planets[pIdx];
+
+            // Calculation Logic
+            const karmaScore = Math.min(99, 45 + (seed % 50) + (asp === 'fame' ? 10 : 0));
+            const wealthScore = Math.min(99, 40 + (seed % 55) + (asp === 'wealth' ? 10 : 0));
+            const foreignChance = (seed * 3) % 100 > 60 ? "उच्च (High)" : "मध्यम (Medium)";
+
+            // Dynamic Careers based on Planet + Aspiration
+            const careerCatalog = {
+                "Surya": ["Political Strategy", "CEO / Leadership", "Surgeon", "Govt Officer", "Brand Identity"],
+                "Chandra": ["Hospitality Mogul", "Psychologist", "PR Director", "Content Creator", "Oceanic Trade"],
+                "Mangal": ["Tech Architect", "Security Intelligence", "Real Estate Developer", "Athlete Mgmt", "Civil Engineer"],
+                "Budh": ["Fintech Founder", "Data Scientist", "Journalist", "E-commerce Giant", "Trader"],
+                "Guru": ["Investment Guru", "Legal Counsel", "EdTech Innovator", "Philosopher", "Central Banker"],
+                "Shukra": ["Creative Director", "Luxury Hotelier", "Fashion Icon", "UI/UX Visionary", "Art Dealer"],
+                "Shani": ["Infrastructure Titan", "Research Scientist", "Logistics King", "Judge", "Sustainability Leader"]
             };
 
-            const bizScore = Math.min(95, (seed * 7) % 100);
-            const leadIndex = Math.min(98, (seed * 11) % 100);
-            const foreignChance = (seed + month) % 3 === 0 ? "High" : "Moderate";
-
-            // Wealth Timeline Logic (Deterministic based on birth date)
-            const wealthPoints = [];
-            for(let age=20; age<=70; age += 5) {
-                let base = (seed % 10) + (age / 10);
-                let cycle = Math.sin((age + seed) / 10) * 20;
-                wealthPoints.push(Math.max(10, Math.floor(base * 10 + cycle)));
+            // Wealth Graph Logic
+            const timeline = [];
+            for(let i=0; i<10; i++) {
+                let base = (seed % 20) + (i * 8);
+                let flux = Math.sin((seed + i) * 0.5) * 25;
+                timeline.push(Math.max(10, Math.floor(base + flux + 30)));
             }
 
             return {
                 planet: domPlanet,
-                desc: planetData[domPlanet].desc,
-                careers: planetData[domPlanet].careers,
-                business: bizScore,
-                leadership: leadIndex,
+                karma: karmaScore,
+                wealth: wealthScore,
                 foreign: foreignChance,
-                wealthTimeline: wealthPoints,
-                saturnAge: (year % 15) + 25
+                careers: careerCatalog[domPlanet.sk],
+                wealthTimeline: timeline,
+                seed: seed
             };
         }
 
-        function renderResults(data) {
-            document.getElementById('dominantPlanet').innerText = data.planet;
-            document.getElementById('planetDesc').innerText = data.desc;
-            
-            document.getElementById('businessScore').innerText = data.business + "%";
-            document.getElementById('businessBar').style.width = data.business + "%";
-            
-            document.getElementById('leadershipIndex').innerText = data.leadership + "%";
-            document.getElementById('leadershipBar').style.width = data.leadership + "%";
-            
-            document.getElementById('foreignProb').innerText = data.foreign;
-            document.getElementById('saturnAge').innerText = data.saturnAge + " - " + (data.saturnAge + 2.5);
+        function displayReport(data) {
+            document.getElementById('resPlanet').innerText = `${data.planet.sk} (${data.planet.en})`;
+            document.getElementById('resPlanetDesc').innerText = data.planet.desc;
+            document.getElementById('resKarmaScore').innerText = data.karma + "%";
+            document.getElementById('resWealthScore').innerText = data.wealth + "%";
+            document.getElementById('resForeign').innerText = data.foreign;
 
-            const careerContainer = document.getElementById('careerPaths');
-            careerContainer.innerHTML = '';
-            data.careers.forEach((c, i) => {
-                careerContainer.innerHTML += `
-                    <div class="career-item">
-                        <span>${i + 1}</span>
-                        ${c}
+            // Detailed Analysis Text
+            document.getElementById('detailedAnalysis').innerHTML = `
+                Your chart indicates a <strong>${data.planet.element}</strong> dominance. 
+                The current planetary alignment suggests that your most auspicious period for <strong>Artha (Wealth)</strong> 
+                accumulation begins around age <strong>${(data.seed % 10) + 26}</strong>. 
+                Focus on the <strong>${data.planet.power}</strong> aspect of your work. 
+                A significant shift in fortune is predicted during the Jupiter-Venus 'Antardasha' phase, 
+                bringing unexpected gains through international connections.
+            `;
+
+            // Career Paths
+            const grid = document.getElementById('careerPathsGrid');
+            grid.innerHTML = '';
+            data.careers.forEach(job => {
+                grid.innerHTML += `
+                    <div class="metric-card">
+                        <span class="label-sanskrit">योग (Auspicious Role)</span>
+                        <div class="metric-value" style="font-size: 1.4rem; color: #1E293B;">${job}</div>
+                        <p class="insight-text">High alignment with your ${data.planet.sk} energy signature.</p>
                     </div>
                 `;
             });
 
-            // Chart Rendering
-            const ctx = document.getElementById('wealthChart').getContext('2d');
-            
-            if (wealthChartInstance) wealthChartInstance.destroy();
+            // Chart
+            const ctx = document.getElementById('dashaChart').getContext('2d');
+            if (chartInstance) chartInstance.destroy();
 
-            wealthChartInstance = new Chart(ctx, {
+            chartInstance = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70],
+                    labels: ['Age 20', 'Age 25', 'Age 30', 'Age 35', 'Age 40', 'Age 45', 'Age 50', 'Age 55', 'Age 60', 'Age 65'],
                     datasets: [{
-                        label: 'Wealth Potential Index',
+                        label: 'Artha Potential',
                         data: data.wealthTimeline,
-                        borderColor: '#8B5CF6',
-                        backgroundColor: 'rgba(237, 233, 254, 0.5)',
+                        borderColor: '#FF9933',
+                        backgroundColor: 'rgba(255, 153, 51, 0.1)',
                         fill: true,
                         tension: 0.4,
-                        borderWidth: 3,
-                        pointBackgroundColor: '#EC4899',
-                        pointRadius: 5
+                        borderWidth: 4,
+                        pointRadius: 6,
+                        pointBackgroundColor: '#EC4899'
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
-                    },
+                    plugins: { legend: { display: false } },
                     scales: {
-                        y: {
-                            beginAtZero: true,
-                            grid: { display: false },
-                            ticks: { display: false }
-                        },
-                        x: {
-                            grid: { display: false },
-                            title: { display: true, text: 'Age (Years)' }
-                        }
+                        y: { display: false },
+                        x: { grid: { display: false } }
                     }
                 }
             });
